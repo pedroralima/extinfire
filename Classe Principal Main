@@ -1,0 +1,55 @@
+import java.time.LocalDate;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        GerenciadorExtintores gerenciador = new GerenciadorExtintores();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. Adicionar Extintor");
+            System.out.println("2. Listar Extintores");
+            System.out.println("3. Atualizar Extintor");
+            System.out.println("4. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine();  // Consome a nova linha
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o ID do extintor: ");
+                    int idAdicionar = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Digite a localização: ");
+                    String localizacaoAdicionar = scanner.nextLine();
+                    System.out.print("Digite a data de validade (YYYY-MM-DD): ");
+                    LocalDate dataValidadeAdicionar = LocalDate.parse(scanner.nextLine());
+                    gerenciador.adicionarExtintor(idAdicionar, localizacaoAdicionar, dataValidadeAdicionar);
+                    break;
+
+                case 2:
+                    gerenciador.listarExtintores();
+                    break;
+
+                case 3:
+                    System.out.print("Digite o ID do extintor a ser atualizado: ");
+                    int idAtualizar = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Digite a nova localização: ");
+                    String novaLocalizacao = scanner.nextLine();
+                    System.out.print("Digite a nova data de validade (YYYY-MM-DD): ");
+                    LocalDate novaDataValidade = LocalDate.parse(scanner.nextLine());
+                    gerenciador.atualizarExtintor(idAtualizar, novaLocalizacao, novaDataValidade);
+                    break;
+
+                case 4:
+                    System.out.println("Saindo...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+}
