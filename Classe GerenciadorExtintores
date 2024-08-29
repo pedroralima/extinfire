@@ -1,0 +1,43 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class GerenciadorExtintores {
+    private List<Extintor> extintores;
+
+    public GerenciadorExtintores() {
+        this.extintores = new ArrayList<>();
+    }
+
+    public void adicionarExtintor(int id, String localizacao, LocalDate dataValidade) {
+        Extintor extintor = new Extintor(id, localizacao, dataValidade);
+        extintores.add(extintor);
+        System.out.println("Extintor adicionado: " + extintor);
+    }
+
+    public void listarExtintores() {
+        if (extintores.isEmpty()) {
+            System.out.println("Nenhum extintor cadastrado.");
+        } else {
+            for (Extintor extintor : extintores) {
+                System.out.println(extintor);
+            }
+        }
+    }
+
+    public void atualizarExtintor(int id, String novaLocalizacao, LocalDate novaDataValidade) {
+        Optional<Extintor> extintorOptional = extintores.stream()
+                .filter(ext -> ext.getId() == id)
+                .findFirst();
+        
+        if (extintorOptional.isPresent()) {
+            Extintor extintor = extintorOptional.get();
+            extintor.setLocalizacao(novaLocalizacao);
+            extintor.setDataValidade(novaDataValidade);
+            System.out.println("Extintor atualizado: " + extintor);
+        } else {
+            System.out.println("Extintor com ID " + id + " não encontrado.");
+        }
+    }
+}
